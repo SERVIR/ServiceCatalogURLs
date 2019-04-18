@@ -1,0 +1,281 @@
+{% extends "servicecatalogurls/base.html" %}
+{% load staticfiles %}
+{% load tethys_gizmos %}
+
+{% block header_buttons %}
+  <div class="header-button glyphicon-button" data-toggle="tooltip" data-placement="bottom" title="Help">
+    <a data-toggle="modal" data-target="#help-modal"><span class="glyphicon glyphicon-question-sign"></span></a>
+  </div>
+{% endblock %}
+
+{% block app_content %}
+        <!--<meta charset="utf-8">-->
+        <!--<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
+
+        <!-- Latest compiled and minified CSS -->
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">-->
+        <!-- jQuery library -->
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+        <!-- Popper JS -->
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>-->
+        <!-- Latest compiled JavaScript -->
+        <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
+
+        <!-- Tethys includes Bootstrap, but it is an older version that does not include "spinner-border". So, we have to use another spinner. -->
+	<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+
+
+        <title>Home</title>
+        <style>
+        body {
+          background: HoneyDew;
+        }
+        .floatLeft{
+            float: left;
+            margin-right: 8px;
+        }
+        .topMargin{
+            margin-top: 8px;
+        }
+        .divwrapper {
+            <!--border: 10px ridge #f00;-->
+            <!--background-color: #ff0;-->
+            padding: .3rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .glyphicon.normal-right-spinner {
+            <!-- Taken from https://bootsnipp.com/snippets/djeAk -->
+            -webkit-animation: glyphicon-spin-r 2s infinite linear;
+            animation: glyphicon-spin-r 2s infinite linear;
+        }
+        .footer {
+           position: fixed;
+           left: 0;
+           bottom: 0;
+           width: 100%;
+           background-color: Gainsboro;
+           color: white;
+           text-align: center;
+           padding-top: 5px;
+           padding-bottom: 5px;
+        }
+        .logos_left{
+            float: left;
+            margin-left: 8px;
+        }
+        .logos_left img{
+            height: 60px;
+        }
+        .logos_right{
+            float: right;
+            margin-right: 8px;
+        }
+        .logos_right img{
+            height: 50px;
+        }
+        .mobilehelp{
+            display:none;
+        }
+        @media (max-width: 1000px){
+            .logos_left img{
+                height: 45px;
+            }
+            .logos_right img{
+                height: 35px;
+            }
+        }
+        @media (max-width: 700px){
+            .logos_left img{
+                height: 35px;
+            }
+            .logos_right img{
+                height: 25px;
+            }
+        }
+        @media (max-width: 450px){
+            .mobilehelp{
+                display:block;
+            }
+            .logos_left img{
+                height: 40px;
+            }
+            .logos_right img{
+                height: 35px;
+            }
+        }
+	@-webkit-keyframes glyphicon-spin-r {
+	    0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	    }
+
+	    100% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg);
+	    }
+	}
+	@keyframes glyphicon-spin-r {
+	    0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	    }
+
+	    100% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg);
+	    }
+	}
+	@-webkit-keyframes glyphicon-spin-l {
+	    0% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg);
+	    }
+
+	    100% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	    }
+	}
+	@keyframes glyphicon-spin-l {
+	    0% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg);
+	    }
+
+	    100% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	    }
+	}
+        logos {
+          padding: 5px 0;
+          white-space: nowrap;
+          width: 100%;
+          display: table;
+        }
+
+        .logo-image {
+          vertical-align: middle;
+          display: table-cell;
+          padding: 0 2px;
+        }
+
+        .logo-image img {
+          max-width: 100%;
+}
+        </style>
+
+
+	<div class="topMargin">
+	    <a href="https://www.servirglobal.net" target="_blank">
+		<img src="https://www.servirglobal.net/Portals/0/Images/logos/Servir_Logo_Flat_Color_Global_Small.png"
+		     alt="SERVIR Global" title="SERVIR Global" align="left" />
+	    </a>
+	</div>
+	<div class="text-right">
+	  	<a href="{% url 'servicecatalogurls:about' %}">About this tool</a>
+	</div>
+	<br />
+	<br />
+	<h2>Global Service Catalogue - Invalid URL Checker</h2>
+	<br />
+	<p>Please select the desired SERVIR region (or "All") to verify related Service Catalogue URLs:</p>
+	    <div class="divwrapper">
+		<!--<form action="/queryresult/" method="get">-->
+		<form action="{% url 'servicecatalogurls:queryresult' %}" method="get">
+		    <!--<select name="region_Picklist" class="floatLeft topMargin">-->
+		    <select name="region_Picklist" class="floatLeft">
+		        <option value="">All</option>
+		        {%for key, value in dict.items%}
+		        <option value={{value}}>{{key}}</option>
+		        {% endfor %}
+		    </select>
+		    <!--<input type="submit" value="Check URLs">-->
+		    <button type="submit" id="submitButton" class="btn btn-primary floatLeft" onclick="myFunction()">Check URLs</button>
+		    <!--<p id="oldmsg" align="center" class="floatLeft topMargin" -->
+		       <!--style="display:none">(Please be patient... the URL verification process may take a few minutes.)</p>-->
+		</form>
+	    </div>
+
+	<br style="clear:both;"/>
+
+        <!--Initially, the user message label and the spinner button are hidden. They get toggled on when user clicks button...-->
+	<div align="center">
+	    <label id="usrmsg" class="hidden">(Please be patient... the URL verification process may take a few minutes.)</label>
+	</div>
+	<div align="center">
+            <button id="spinner" type="button" class="btn btn-default hidden">
+                <!--this is a normal-right-spinner-->  
+                <span class="glyphicon glyphicon-repeat normal-right-spinner"></span>
+                <!--please see https://bootsnipp.com/snippets/djeAk-->  processing...
+            </button>
+	</div>
+
+
+        <script>
+        <!--javascript version-->
+        <!--function myFunction() {-->
+          <!--document.getElementById('usrmsg').style.display='block'-->
+          <!--var x = document.getElementById("myDIV");-->
+          <!--if (x.style.display === "none") {-->
+            <!--x.style.display = "block";-->
+          <!--} else {-->
+            <!--x.style.display = "none";-->
+          <!--}-->
+        <!--}-->
+
+        <!--jquery version - Does the same thing as the javascript version above...-->
+        function myFunction() {
+          // $("#usrmsg").toggle();
+          $("#usrmsg").removeClass('hidden');
+          // $("#spinner").toggle();
+          $("#spinner").removeClass('hidden');
+        }
+        </script>
+{% endblock %}
+
+{# Use the after_app_content block for modals #}
+{% block after_app_content %}
+<!-- Example Modal -->
+<div class="modal fade" id="help-modal" tabindex="-1" role="dialog" aria-labelledby="help-modal-label">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="help-modal-label">Help</h5>
+            </div>
+            <div class="modal-body">
+                <p>Choose a region (or "All") from the picklist and click the "Check URLs" button. This will call the Service Catalog API to retrieve all services from the specified region. For each service, the tool will verify the user-entered URLs associated with the Data, Tools, News, and Training Materials entries. URLs that report an invalid status code are displayed in a table once processing is complete.</p>
+                <p>This is an internal SERVIR admin tool, and is not to be used for any operational purpose. The SERVIR Project, NASA, and USAID, make no express or implied warranty of this application and associated data as to the merchantability or fitness for a particular purpose. Neither the US Government nor its contractors shall be liable for special, consequential or incidental damages attributed to this application and associated data.</p>
+                <p><a href="https://servirglobal.net/Privacy-Terms-of-Use" target="_blank">Privacy and Terms of Use</a></p>
+            </div>
+            <div class="modal-footer">
+                <div align="center" id="logos">
+                    <div class="logo-image"><a href="https://www.usaid.gov/" target="_blank"><img src="https://servirglobal.net/Portals/_default/Skins/Servir2015/img/usaid.png"></a></div>
+                    <div class="logo-image"><a href="https://appliedsciences.nasa.gov/" target="_blank"><img src="https://servirglobal.net/Portals/_default/Skins/Servir2015/img/nasa.png"></a></div>
+                    <div class="logo-image"><a href="http://servir.cilss.int/en/" target="_blank"><img src="https://servirglobal.net/Portals/_default/Skins/Servir2015/img/cilss.png"></a></div>
+                    <div class="logo-image"><a href="http://servir.rcmrd.org/" target="_blank"><img src="https://servirglobal.net/Portals/_default/Skins/Servir2015/img/rcmrd.png"></a></div>
+                    <div class="logo-image"><a href="http://servir.icimod.org/" target="_blank"><img src="https://servirglobal.net/Portals/_default/Skins/Servir2015/img/icimod.png"></a></div>
+                    <div class="logo-image"><a href="https://servir.adpc.net/" target="_blank"><img src="https://servirglobal.net/Portals/_default/Skins/Servir2015/img/adpc.png"></a></div>
+                    <div class="logo-image"><a href="https://ciat.cgiar.org/" target="_blank"><img src="https://www.servirglobal.net/Portals/_default/Skins/Servir2015/img/CIAT-logo.png" ></a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block app_actions_override %}
+    <div class="footer">
+	    <a href="//www.usaid.gov/" target="_blank" class="logos_left" ><img src="https://www.servirglobal.net/Portals/_default/Skins/Servir2015/img/usaid.png"></a>
+	    <a href="//www.nasa.gov/" target="_blank" class="logos_left" ><img src="https://www.servirglobal.net/Portals/_default/Skins/Servir2015/img/nasa.png"></a>
+
+	    <a href="//ciat.cgiar.org/" target="_blank" class="logos_right"><img src="https://www.servirglobal.net/Portals/_default/Skins/Servir2015/img/CIAT-logo.png" ></a>
+	    <a href="//servir.adpc.net/" target="_blank" class="logos_right"><img src="https://www.servirglobal.net/Portals/_default/Skins/Servir2015/img/adpc.png" ></a>
+	    <a href="//servir.icimod.org/" target="_blank" class="logos_right"><img src="https://www.servirglobal.net/Portals/_default/Skins/Servir2015/img/icimod.png" ></a>
+	    <a href="//servir.rcmrd.org/" target="_blank" class="logos_right"><img src="https://www.servirglobal.net/Portals/_default/Skins/Servir2015/img/rcmrd.png" ></a>
+	    <a href="//servir.cilss.int/en/" target="_blank" class="logos_right" ><img src="https://www.servirglobal.net/Portals/_default/Skins/Servir2015/img/cilss.png" ></a>
+    </div>
+{% endblock %}
+
