@@ -32,7 +32,7 @@ This tool was developed using:
 
 The project follows the standard Django application template and is called ServiceCatalogURLs. The majority of the python code logic is in QueryCatalog.py.  Below is the source hierarchy:
 ```
-`<app_source folder>/
+`<ServiceCatalogURLs>/
 `                    ReadMe.md (this file)
 `                    Servir - ServiceCalatogue GraphQL API.PDF
 `                    setup.py
@@ -67,6 +67,8 @@ The project follows the standard Django application template and is called Servi
 
 ## Instructions to deploy:
 1.  Install and configure [Tethys](http://docs.tethysplatform.org/en/stable/index.html) per [installation instructions](http://docs.tethysplatform.org/en/stable/installation.html#).
-2.  Clone this repository to your desired app location on your Tethys server and configure the app to run in the Tethys environment.
+2.  Clone this repository to your desired Tethys app location on your server and configure the app to run in the Tethys environment:
+    - tuo
+    
 3.  Start your browser and navigate to the Tethys Apps home page.
 Tethys App tutorials are at: [http://docs.tethysplatform.org/en/stable/tutorials.html](http://docs.tethysplatform.org/en/stable/tutorials.html)
