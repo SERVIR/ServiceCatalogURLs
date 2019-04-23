@@ -65,10 +65,14 @@ The project follows the standard Django application template and is called Servi
 `
 ```
 
-## Instructions to deploy:
+## Steps to deploy:
 1.  Install and configure [Tethys](http://docs.tethysplatform.org/en/stable/index.html) per [installation instructions](http://docs.tethysplatform.org/en/stable/installation.html#).
-2.  Clone this repository to your desired Tethys app location on your server and configure the app to run in the Tethys environment:
-    - tuo
-    
-3.  Start your browser and navigate to the Tethys Apps home page.
-Tethys App tutorials are at: [http://docs.tethysplatform.org/en/stable/tutorials.html](http://docs.tethysplatform.org/en/stable/tutorials.html)
+2.  From the Tethys Apps folder, run "t" to start the tethys vitual env.
+3.  run "tuo" to set to the user owner.
+4.  Clone this repository to your the Tethys Apps on your server and configure the app to run in a production environment [make any required changes for the server environment].
+6.  run "python setup.py install" for PRODUCTION env.  ("python setup.py develop" for DEV)
+7.  run "tethys manage collectall" for PRODUCTION env.
+8.  run "tso" to reset to the server owner.
+9.  run "tsr" to restart the tethys server.
+10.  Start your browser and navigate to the Tethys Apps home page.
+Tethys app tutorials are at: [http://docs.tethysplatform.org/en/stable/tutorials.html](http://docs.tethysplatform.org/en/stable/tutorials.html)
