@@ -12,20 +12,13 @@
 {# The name you provided in your app.py is accessible through the tethys_app.name context variable #}
 {% block app_title %}{{ tethys_app.name }}{% endblock %}
 
-{% block app_navigation_items %}
-  {% url 'servicecatalogurls:home' as home_url %}
-  {% url 'servicecatalogurls:about' as about_url %}
-  <li class="title">Navigation</li>
-  <li class="{% if request.path == home_url %}active{% endif %}"><a href="{{ home_url }}">Home</a></li>
-  <li class="{% if request.path == about_url %}active{% endif %}"><a href="{{ about_url }}">About</a></li>
-  <li class="separator"></li>
-  <li><p><b>Steps<b><p></li>
-  <li><p class="active">1. Choose a region (or "All") from the picklist.</p></li>
-  <li><p class="active">2. Click the "Check URLs" button.</p></li>
-  <li><p class="active">3. The Results page will display once execution is complete.</p></li>
-  <li class="separator"></li>
-  <li><a href="{{ about_url }}">About this tool</a></li>
+
+{% block app_navigation_override %}
+  {# This block completely removes the app navigation pane and app navigation items. #}
+  <div>
+  </div>
 {% endblock %}
+
 
 {% block app_content %}
 {% endblock %}
