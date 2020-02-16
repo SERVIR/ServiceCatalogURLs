@@ -27,7 +27,6 @@ To run any tests:
                 PASSWORD: pass
                 HOST: 127.0.0.1
                 PORT: 5435
-
     4. Enter tethys test command.
        The general form is: "tethys test -f tethys_apps.tethysapp.<app_name>.<folder_name>.<file_name>.<class_name>.<function_name>"
        See below for specific examples

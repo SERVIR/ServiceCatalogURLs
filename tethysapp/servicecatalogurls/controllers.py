@@ -51,7 +51,3 @@ def queryresult(request):
 
     context = {}
     return render(request, 'servicecatalogurls/about.html', context)
-
-
-
-
