@@ -1,0 +1,74 @@
+{% extends "servicecatalogurls/base.html" %}
+{% load static %}
+{% load tethys_gizmos %}
+
+{% block app_content %}
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Latest compiled and minified CSS -->
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">-->
+        <!-- jQuery library -->
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+        <!-- Popper JS -->
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>-->
+        <!-- Latest compiled JavaScript -->
+        <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
+
+        <title>About</title>
+        <style>
+        body {
+            background: HoneyDew;
+        }
+        .topMargin{
+            margin-top: 8px;
+        }
+        </style>
+
+        <div class="topMargin">
+            <a href="https://www.servirglobal.net" target="_blank">
+                <img src="https://www.servirglobal.net/Portals/0/Images/logos/Servir_Logo_Flat_Color_Global_Small.png"
+                     alt="SERVIR Global" title="SERVIR Global" align="left" />
+            </a>
+        </div>
+        <br />
+        <br />
+        <br />
+        <!--<h1>Welcome to the Service Catalogue - Invalid URL Checker about page!</h1>-->
+        <h2>Global Service Catalogue - Invalid URL Checker</h2>
+        <br />
+        <p>
+            This tool is used to verify that certain user-entered URLs contained in the
+            <a href="https://www.servirglobal.net/ServiceCatalogue/" target="_blank">SERVIR Global Service Catalogue</a>
+            are valid and reachable via the internet.  Specifically, entries in the DATA, TOOLS, NEWS, and
+            TRAINING MATERIALS sections within each service are checked for valid accessibility. The tool executes
+            a Python script (via Django framework) that calls the Service Catalogue API to retrieve info from all services.
+            Invalid URL entries are gathered and reported in a table on the results page that is
+            displayed after the tool has finished processing.  If needed, the resulting table can be exported to a comma separated
+            values (.csv) file - which can be opened in Excel.
+        </p>
+        <p>
+            A secondary check is also made on URLs specific to the DATA section within each service to
+            ensure that all of the entries link to a particular data item within the
+            <a href="http://gis1.servirglobal.net:8080/geonetwork" target="_blank">SERVIR Global Data Catalogue</a>
+            (e.g. http://gis1.servirglobal.net:8080/geonetwork/...). DATA URL entries found pointing to sites other
+            than the Global Data Catalogue are reported in a second table on the results page.
+        </p>
+        <br />
+        <p>
+            <i>This tool is made available "as is". The SERVIR Project, NASA, and USAID make no express or
+            implied warranty of this tool as to the merchantability or fitness for a particular purpose. The US
+            Government shall not be liable for special, consequential or incidental damages attributed to this tool.</i>
+        </p>
+        <p>
+            <i>&copy; 2019  <a href="https://www.servirglobal.net">SERVIR</a></i>
+        </p>
+        <br />
+        <br />
+        <a href="{% url 'servicecatalogurls:home' %}">Go back home</a>
+        <br />
+        <br />
+{% endblock %}
+
+
