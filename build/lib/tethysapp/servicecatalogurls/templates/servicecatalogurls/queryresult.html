@@ -1,0 +1,206 @@
+{% extends "servicecatalogurls/base.html" %}
+
+{% load static %}
+{% load tethys_gizmos %}
+
+{% block app_content %}
+
+    <!--<meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8">-->
+    <!--<meta charset="utf-8">-->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
+
+    <!-- Latest compiled and minified CSS -->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">-->
+    <!-- jQuery library -->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+    <!-- Popper JS -->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>-->
+    <!-- Latest compiled JavaScript -->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
+
+    <title>URL Results</title>
+    <style>
+        body {
+            background: HoneyDew;
+        }
+        .topMargin{
+            margin-top: 8px;
+        }
+        tbody {
+            background: Beige;
+        }
+        thead {
+            background: Gray;
+        }
+    </style>
+
+    <body>
+        <div class="topMargin">
+            <a href="https://www.servirglobal.net" target="_blank">
+                <img src="https://www.servirglobal.net/Portals/0/Images/logos/Servir_Logo_Flat_Color_Global_Small.png"
+                     alt="SERVIR Global" title="SERVIR Global" align="left" />
+            </a>
+        </div>
+        <br />
+        <br />
+        <br />
+        <h2 class="text-left"><a href="https://www.servirglobal.net/ServiceCatalogue/" target="_blank">Global Service Catalogue</a></h2>
+        <div class="text-right">
+          	<a href="{% url 'servicecatalogurls:home' %}">Go back home</a>
+        </div>
+        <h3 class="text-left">Invalid URLs</h3>
+
+        <div class="table-responsive" id="invalid_entries">
+            <table class="table table-bordered table-hover">
+                  <!--<colgroup>-->
+                    <!--<col span="1" style="width: 10%;">-->
+                    <!--<col span="1" style="width: 11%;">-->
+                    <!--&lt;!&ndash;<col span="1" style="width: 1%;">&ndash;&gt;-->
+                    <!--<col span="1" style="width: 30%;">-->
+                    <!--<col span="1" style="width: 6%;">-->
+                    <!--<col span="1" style="width: 43%;">-->
+                  <!--</colgroup>-->
+                <!--<thead class="thead-dark">-->
+                <thead>
+                    <tr>
+                        <th>URL Status</th>
+                        <th>Region</th>
+                        <!--<th>ServiceArea</th>-->
+                        <th>Service</th>
+                        <th>Section</th>
+                        <th>Name: URL</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {%for item in errList%}
+                    <tr>
+                        <td>{{item.Status}}</td>
+                        <td>{{item.Region}}</td>
+                        <!--<td>{{item.ServiceArea}}</td>-->
+                        <td><a href="https://www.servirglobal.net/ServiceCatalogue/details/{{item.ID}}" target="_blank">{{item.Title}}</a></td>
+                        <td>{{item.Section}}</td>
+                        <td>{{item.SectionEntry}}: <a href={{item.URL}} target="_blank">{{item.URL}}</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <p>*&nbsp;&nbsp;&nbsp;"403" status codes are currently reported even though you can likely still access a
+            page when receiving a 403 code. (Same goes for invalid or failed certificates.)<br>
+            **&nbsp;"DUPLICATE" means that the URL has already been verified as invalid, but is reported again as it may
+            be referenced from a different service or section.</p>
+        <button type="button" class="btn btn-primary" onclick="exportTableToCSV('InvalidURLs.csv', 'invalid_entries')">Export To CSV</button>
+        <br />
+        <br />
+        <br />
+
+        <h3 class="text-left">DATA URLs not linking to the <a href="http://gis1.servirglobal.net:8080/geonetwork" target="_blank">Global Data Catalogue</a></h3>
+
+        <div class="table-responsive" id="catalog_entries">
+            <table class="table table-bordered table-hover">
+                <!--<colgroup>-->
+                   <!--<col span="1" style="width: 12%;">-->
+                   <!--<col span="1" style="width: 11%;">-->
+                   <!--&lt;!&ndash;<col span="1" style="width: 1%;">&ndash;&gt;-->
+                   <!--<col span="1" style="width: 30%;">-->
+                   <!--<col span="1" style="width: 6%;">-->
+                   <!--<col span="1" style="width: 41%;">-->
+                <!--</colgroup>-->
+                <thead class="thead-dark">
+                    <tr>
+                        <th>URL Status</th>
+                        <th>Region</th>
+                        <!--<th>ServiceArea</th>-->
+                        <th>Service</th>
+                        <th>Section</th>
+                        <th>Name: URL</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {%for entry in badCatalogList%}
+                    <tr>
+                        <td>{{entry.Status}}</td>
+                        <td>{{entry.Region}}</td>
+                        <!--<td>{{entry.ServiceArea}}</td>-->
+                        <td><a href="https://www.servirglobal.net/ServiceCatalogue/details/{{entry.ID}}" target="_blank">{{entry.Title}}</a></td>
+                        <td>{{entry.Section}}</td>
+                        <td>{{entry.SectionEntry}}: <a href={{entry.URL}} target="_blank">{{entry.URL}}</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="exportTableToCSV('InvalidCatalogs.csv', 'catalog_entries')">Export To CSV</button>
+
+        <br />
+        <br />
+        <br />
+        <a href="{% url 'servicecatalogurls:home' %}">Go back home</a>
+        <br />
+        <br />
+        <!--<form action="/">-->
+            <!--<input type="submit" value="Home" />-->
+        <!--</form>-->
+    </body>
+
+    <script>
+        function downloadCSV(csv, filename) {
+            var csvFile;
+            var downloadLink;
+
+            // CSV file
+            csvFile = new Blob([csv], {type: "text/csv"});
+
+            // Download link
+            downloadLink = document.createElement("a");
+
+            // File name
+            downloadLink.download = filename;
+
+            // Create a link to the file
+            downloadLink.href = window.URL.createObjectURL(csvFile);
+
+            // Hide download link
+            downloadLink.style.display = "none";
+
+            // Add the link to DOM
+            document.body.appendChild(downloadLink);
+
+            // Click download link
+            downloadLink.click();
+        }
+        function exportTableToCSV(filename, divID) {
+            var csv = [];
+
+            // Build the name of the div container with the ID passed in.
+            var selectorName = "#".concat(divID)
+
+            // Grab the div container with the ID passed in.
+            var container = document.querySelector(selectorName);
+
+            // var rows = document.querySelectorAll("table tr");
+            var rows = container.querySelectorAll("div.table-responsive > table tr");
+
+            for (var i = 0; i < rows.length; i++) {
+                var row = [], cols = rows[i].querySelectorAll("td, th");
+
+                for (var j = 0; j < cols.length; j++)
+                    row.push(cols[j].innerText);
+
+                csv.push(row.join(","));
+            }
+
+            // Download CSV file
+            downloadCSV(csv.join("\n"), filename);
+        }
+    </script>
+
+{% endblock %}
+
+<<<<<<< HEAD
+
+=======
+>>>>>>> 7eeb7c999b9348465b5426bfacef94e3ddc7bfca
